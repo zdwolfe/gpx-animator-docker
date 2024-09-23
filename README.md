@@ -1,13 +1,26 @@
-# docker container for gpx-animator
+# dockerized tools for animating gpx files
+
+One-liner to trim, then animate a gpx file named ``Evening_Ride.gpx`` in the ``./data`` dir:
+
+```bash
+./animate-trimmed.sh Evening_Ride.gpx 400 400
+```
+
+Syntax:
+./animate-trimmed.sh <__input_filename__> <__skip_frames_start__> <__skip_frames_end__>
+
+
+
+# tools
+## gpx-animator
+Gpx file animation. See https://gpx-animator.app/.
 
 
 Build:
 
 ```bash
-docker build -t gpx-animator .
+docker build -f gpx-animator.Dockerfile -t gpx-animator .
 ```
-
-
 
 Run:
 
@@ -39,4 +52,36 @@ docker run --rm -v $(pwd)/data:/data gpx-animator \
 ```
 
 
-See https://gpx-animator.app/ for all gpx-animator options.
+
+
+
+
+## gpsbabel
+Gpx file transformation. See https://www.gpsbabel.org/index.html
+
+Build:
+
+```bash
+docker build -f gpsbabel.Dockerfile -t gpsbabel .
+```
+
+Run:
+```bash
+docker run --rm -v $(pwd)/data:/data gpsbabel \
+  ...
+```
+
+## trim points
+Trim points from the beginning and end (to hide "home"). See trim_gpx.py.
+
+```bash
+docker build -f trim_gpx.Dockerfile -t trim-gpx .
+```
+
+```bash
+docker run --rm -v $(pwd)/data:/data trim-gpx \
+  --input /data/Lake_Washington_Lollipop.gpx \
+  --output /data/Lake_Washington_Lollipop.trim.gpx \
+  --trim-start-points 10 \
+  --trim-end-points 10
+```
