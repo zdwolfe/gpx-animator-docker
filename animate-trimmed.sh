@@ -33,7 +33,7 @@ docker run --rm -v $(pwd)/data:/data gpx-animator \
   --skip-idle \
   --pre-draw-track \
   --pre-draw-track-color '#808080' \
-  --zoom 12 \
+  --zoom 13 \
   --background-map-visibility 0.95 \
   --tms-url-template "https://{switch:a,b,c}.tile.openstreetmap.org/{zoom}/{x}/{y}.png"
 
