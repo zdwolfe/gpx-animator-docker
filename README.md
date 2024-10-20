@@ -3,11 +3,11 @@
 One-liner to trim, then animate a gpx file named ``Evening_Ride.gpx`` in the ``./data`` dir:
 
 ```bash
-./animate-trimmed.sh Evening_Ride.gpx 400 400
+./animate-trimmed.sh Evening_Ride.gpx 40.0002N,-100.000W,0.750mi
 ```
 
 Syntax:
-./animate-trimmed.sh <__input_filename__> <__skip_frames_start__> <__skip_frames_end__>
+./animate-trimmed.sh <__input_filename__> <__exclude_location_with_radius__>
 
 
 
@@ -72,7 +72,7 @@ docker run --rm -v $(pwd)/data:/data gpsbabel \
 ```
 
 ## trim points
-Trim points from the beginning and end (to hide "home"). See trim_gpx.py.
+Trim points from the beginning and end (to hide "home"). See trim_gpx.py. Can trim "points" and "miles" radius around a GPS coordinate.
 
 ```bash
 docker build -f trim_gpx.Dockerfile -t trim-gpx .
@@ -82,6 +82,6 @@ docker build -f trim_gpx.Dockerfile -t trim-gpx .
 docker run --rm -v $(pwd)/data:/data trim-gpx \
   --input /data/Lake_Washington_Lollipop.gpx \
   --output /data/Lake_Washington_Lollipop.trim.gpx \
-  --trim-start-points 10 \
-  --trim-end-points 10
+  --trim-start-points 0 --trim-end-points 0 \
+  --exclude-location 40.0002N,-100.000W,0.750mi
 ```

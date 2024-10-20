@@ -2,15 +2,14 @@
 
 ride=$1
 ride_trimmed=${ride}.trim.gpx
-trim_start=$2
-trim_end=$3
+exclude_location=$2
 animation=${ride_trimmed}.mp4
 
 docker run --rm -v $(pwd)/data:/data trim-gpx \
   --input /data/${ride} \
   --output /data/${ride_trimmed} \
-  --trim-start-points ${trim_start} \
-  --trim-end-points ${trim_end}
+  --exclude-location "${exclude_location}" \
+  --trim-start-points 0 --trim-end-points 0
 
 docker run --rm -v $(pwd)/data:/data gpx-animator \
   --input /data/${ride_trimmed} \
