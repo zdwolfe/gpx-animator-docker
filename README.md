@@ -85,3 +85,28 @@ docker run --rm -v $(pwd)/data:/data trim-gpx \
   --trim-start-points 0 --trim-end-points 0 \
   --exclude-location 40.0002N,-100.000W,0.750mi
 ```
+
+
+
+## Adjust file creation date.
+
+My GoPro often reverts to incorrect dates after power loss. This tool offsets file metadata.
+
+```bash
+python3 apply_creation_offset.py --input-directory <path> --offset <XXdYYhZZmWWs> [--dry-run]
+```
+- `--input-directory`: Directory with files to adjust.
+- `--offset`: Offset in days/hours/minutes/seconds (e.g. `00d10h54m00s`).
+- `--dry-run`: Print changes without applying them.
+
+
+```bash
+docker build -f apply_creation_offset.Dockerfile -t zdwolfe-apply-creation-offset .
+```
+
+Example:
+```bash
+docker run --rm -v $(pwd)/data:/data zdwolfe-apply-creation-offset \
+  --input-directory "/data" \
+  --offset 00d10h54m00s
+```

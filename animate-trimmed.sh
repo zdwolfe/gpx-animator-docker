@@ -10,7 +10,6 @@ docker run --rm -v $(pwd)/data:/data trim-gpx \
   --output /data/${ride_trimmed} \
   --exclude-location "${exclude_location}" \
   --trim-start-points 0 --trim-end-points 0
-
 docker run --rm -v $(pwd)/data:/data gpx-animator \
   --input /data/${ride_trimmed} \
   --output /data/${animation} \
@@ -23,17 +22,16 @@ docker run --rm -v $(pwd)/data:/data gpx-animator \
   --tail-color '#FF0000' \
   --speedup 2000.0 \
   --information "%SPEED% %LATLON% %DATETIME%" \
-  --information-position BOTTOM_RIGHT \
-  --viewport-width 800 \
-  --viewport-height 600 \
-  --viewport-inertia 100 \
-  --track-icon-mirror \
+  --information-position bottom_right \
+  --viewport-inertia 50 \
+  --track-icon-mirror true \
   --comment-margin 30 \
-  --skip-idle \
-  --pre-draw-track \
+  --skip-idle true \
+  --pre-draw-track true \
   --pre-draw-track-color '#808080' \
   --zoom 13 \
   --background-map-visibility 0.95 \
   --tms-url-template "https://{switch:a,b,c}.tile.openstreetmap.org/{zoom}/{x}/{y}.png"
+
 
 echo "wrote ${PWD}/data/${animation}"
